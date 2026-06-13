@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <title>Blog Home</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
 </head>
-<body>
-$END$
+<div>
+    <a href="?lang=en">English</a> | <a href="?lang=ka">ქართული</a>
+</div>
+<h1 th:text="#{blog.welcome}">Welcome to the Blog</h1>
+<a href="/create" th:text="#{blog.create}">Create New Post</a>
+    <hr>
+    <div th:each="p : ${posts}">
+        <h2 th:text="${p.title}">Post Title</h2>
+        <p>By: <span th:text="${p.author.name}">Author</span></p>
+        <p th:text="${p.content}">Content...</p>
+        <p th:if="${p.imageFileName != null}">Has attachment: <span th:text="${p.imageFileName}"></span></p>
+        <hr>
+    </div>
+</div>
 </body>
 </html>

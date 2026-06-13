@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <title>Create Post</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-$END$
+<div class="container">
+    <h1>Create a New Blog Post</h1>
+
+    <form th:action="@{/create}" th:object="${post}" method="post" enctype="multipart/form-data">
+
+        <label>Title:</label><br>
+        <input type="text" th:field="*{title}"><br>
+        <span class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span><br><br>
+
+        <label>Content:</label><br>
+        <textarea th:field="*{content}" rows="4" cols="30"></textarea><br><br>
+
+        <label>Author:</label><br>
+        <select th:field="*{author}">
+            <option th:each="a : ${authors}" th:value="${a.id}" th:text="${a.name}"></option>
+        </select><br><br>
+
+        <label>Upload Image:</label><br>
+        <input type="file" name="file"><br><br>
+
+        <button type="submit">Save Post</button>
+    </form>
+</div>
 </body>
 </html>
